@@ -1,0 +1,5 @@
+name: Fleshwarp the Dead
+cost: 7
+typeName: Ritual
+text: Choose a creature card in your discard pile. Put it onto the battlefield, except it's a 2/2 Aberration instead.
+keywords: ["Summon"]

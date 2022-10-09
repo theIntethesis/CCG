@@ -1,0 +1,8 @@
+name: Whispering Influence
+cost: 2
+typeName: Creature
+strength: 0
+will: 3
+text: Creatures with Warping you control have +0/+1
+keywords:
+creatureType: Manifestation

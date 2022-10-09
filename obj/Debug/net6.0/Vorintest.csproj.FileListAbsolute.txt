@@ -1,0 +1,17 @@
+C:\Users\Hayden\source\repos\Vorintest\Vorintest\bin\Debug\net6.0\Vorintest.exe
+C:\Users\Hayden\source\repos\Vorintest\Vorintest\bin\Debug\net6.0\Vorintest.deps.json
+C:\Users\Hayden\source\repos\Vorintest\Vorintest\bin\Debug\net6.0\Vorintest.runtimeconfig.json
+C:\Users\Hayden\source\repos\Vorintest\Vorintest\bin\Debug\net6.0\Vorintest.dll
+C:\Users\Hayden\source\repos\Vorintest\Vorintest\bin\Debug\net6.0\Vorintest.pdb
+C:\Users\Hayden\source\repos\Vorintest\Vorintest\obj\Debug\net6.0\Vorintest.csproj.AssemblyReference.cache
+C:\Users\Hayden\source\repos\Vorintest\Vorintest\obj\Debug\net6.0\Vorintest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Hayden\source\repos\Vorintest\Vorintest\obj\Debug\net6.0\Vorintest.AssemblyInfoInputs.cache
+C:\Users\Hayden\source\repos\Vorintest\Vorintest\obj\Debug\net6.0\Vorintest.AssemblyInfo.cs
+C:\Users\Hayden\source\repos\Vorintest\Vorintest\obj\Debug\net6.0\Vorintest.csproj.CoreCompileInputs.cache
+C:\Users\Hayden\source\repos\Vorintest\Vorintest\obj\Debug\net6.0\Vorintest.dll
+C:\Users\Hayden\source\repos\Vorintest\Vorintest\obj\Debug\net6.0\refint\Vorintest.dll
+C:\Users\Hayden\source\repos\Vorintest\Vorintest\obj\Debug\net6.0\Vorintest.pdb
+C:\Users\Hayden\source\repos\Vorintest\Vorintest\obj\Debug\net6.0\Vorintest.genruntimeconfig.cache
+C:\Users\Hayden\source\repos\Vorintest\Vorintest\obj\Debug\net6.0\ref\Vorintest.dll
+C:\Users\Hayden\source\repos\Vorintest\Vorintest\bin\Debug\net6.0\YamlDotNet.dll
+C:\Users\Hayden\source\repos\Vorintest\Vorintest\obj\Debug\net6.0\Vorintest.csproj.CopyComplete

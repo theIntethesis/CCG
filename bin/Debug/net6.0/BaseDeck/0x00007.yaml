@@ -1,0 +1,7 @@
+name: Kidnapper Cultist
+cost: 2
+typeName: Creature
+strength: 1
+will: 2
+text: At the beginning of your turn, you gain 1 Blood.
+creatureType: Cultist 

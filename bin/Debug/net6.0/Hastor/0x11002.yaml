@@ -1,0 +1,8 @@
+name: Gibbering Fiend
+cost: 1
+typeName: Creature
+strength: 1
+will: 1
+text: Warping 3
+keywords: ["Warping"]
+creatureType: Manifestation

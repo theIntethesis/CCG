@@ -1,0 +1,8 @@
+name: Reckless Cultist
+cost: 2
+typeName: Creature
+strength: 1
+will: 1
+text: "Initiation: Put the top three cards of your draw pile into your discard pile."
+keywords: ["Initiation"]
+creatureType: Cultist

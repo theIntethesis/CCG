@@ -1,0 +1,8 @@
+name: Forebear of the Eldars
+cost: 5
+typeName: Creature
+strength: 6
+will: 6
+text: "Massive, Dying Breath: Shuffle this card back into your deck."
+keywords: ["Massive", "Dying Breath"]
+creatureType: Aberration

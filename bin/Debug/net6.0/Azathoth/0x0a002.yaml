@@ -1,0 +1,7 @@
+name: Azathoth's Jester
+cost: 3
+typeName: Creature
+strength: 1
+will: 3
+text: At the start of each of your turns, draw a card.
+creatureType: Cultist

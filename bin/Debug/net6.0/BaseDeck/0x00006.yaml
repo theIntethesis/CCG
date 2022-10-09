@@ -1,0 +1,7 @@
+name: Grand Master Cultist
+cost: 4
+typeName: Creature
+strength: 3
+will: 3
+text: Other Cultists you control get +1/+1
+creatureType: Cultist

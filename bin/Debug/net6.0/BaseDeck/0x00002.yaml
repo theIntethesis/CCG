@@ -1,0 +1,8 @@
+name: Cult Seer
+cost: 2
+typeName: Creature
+strength: 2
+will: 2
+text: Manifest
+keywords: ["Manifest"]
+creatureType: Cultist

@@ -1,0 +1,8 @@
+name: Alarm Ringer
+cost: 1
+typeName: Creature
+strength: 1
+will: 1
+text: "Initiation: Draw a card."
+keywords: ["Initiation"]
+creatureType: Cultist

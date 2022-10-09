@@ -1,0 +1,8 @@
+name: Manifested Dread
+cost: 2
+typeName: Creature
+strength: 0
+will: 1
+text: "Manifest, Warping 3"
+keywords: ["Manifest", "Warping"]
+creatureType: Manifestation

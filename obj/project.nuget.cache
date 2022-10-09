@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "up2JaywRj9PT+ishGzXkqovzFw5e3NhuD9U3NngT1KKGGLTu7jwV0PIcsNhDdFkAOuqiy8u74mq5lfnm2Lj3Ww==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Hayden\\source\\repos\\Vorintest\\Vorintest\\Vorintest.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Hayden\\.nuget\\packages\\yamldotnet\\12.0.2\\yamldotnet.12.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

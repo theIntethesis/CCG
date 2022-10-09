@@ -1,0 +1,7 @@
+name: Disciple of Hastor
+cost: 3
+typeName: Creature
+strength: 2
+will: 2
+text: "As long as you have less Sanity than your opponent, Rituals and Incantations you cast cost 2 less Sanity."
+creatureType: Cultist
