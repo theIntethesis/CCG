@@ -6,3 +6,4 @@ will: 1
 text: "Manifest, Warping 3"
 keywords: ["Manifest", "Warping"]
 creatureType: Manifestation
+warpingMod: 3

@@ -7,6 +7,7 @@ using YamlDotNet.Serialization;
 
 namespace CCG
 {
+    #pragma warning disable CS0168 // Variable is declared but never used
     internal class Card
     {
         public string name { set; get; }
@@ -17,9 +18,10 @@ namespace CCG
         public int curWill { set; get; }
         public bool takenDamage { set; get; }
         public string text { set; get; }
+        public int warpingMod { set; get; }
         public List<string> keywords { set; get; }
         public string creatureType { set; get; }
-        spellNum spellType { set; get; }
+        public spellNum spellType { set; get; }
         public enum spellNum { Creature = 1, Ritual = 2, Incantation = 3};
         public enum keyword { massive = 1, warping = 2, manifest = 3, dying_breath = 4, initiation = 5, burn = 6 };
         public Card() 

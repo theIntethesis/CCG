@@ -15,6 +15,7 @@ internal class Program
 	public static int yourSanity = 50;
 	public static int yourBloodCoffers = 0;
 	public static int yourBlood = 0;
+	public static int theirSanity = 50;
 	static void Main()
 	{ 
 		Random rng = new Random();
@@ -78,8 +79,7 @@ internal class Program
 		Shuffle(drawPile);
 		for(int i = 0; i < 5; i++)
 		{
-			hand.Add(drawPile.ElementAt(0));
-			drawPile.RemoveAt(0);
+			draw();
 		}
 		int width = Console.BufferWidth;
 		for (int i = 0; i < (width - 24) / 2; i++)
@@ -98,34 +98,120 @@ internal class Program
 		Console.Clear();
 		tutorial();
 	}
+
+	static void draw()
+    {
+		hand.Add(drawPile.ElementAt(0));
+		drawPile.RemoveAt(0);
+	}
+
 	static void parse()
 	{
+		displayHeader();
+		string next;
 		string input = "";
 		while(input == "")
 		{
 			Console.Write($"\n\n > ");
 			input = Console.ReadLine();
 		}
-
-		if (input.Substring(0, input.IndexOf(' ')).ToLower() == "show")
+		string temp;
+		try
 		{
-			string next = input.Remove(0, input.IndexOf(' ')+1);
-			switch (next.ToLower())
-			{
-				case "hand":
-					showHand();
-					break;
-				case "my battlefield":
-					showMyBattlefield();
-					break;
-				case "their battlefield":
-					showTheirBattlefield();
-					break;
-				default:
-					return;
-			}
+			temp = input.Substring(0, input.IndexOf(' ')).ToLower();
 		}
-		
+		catch (Exception ex)
+        {
+			temp = input;
+		}
+		next = input.Remove(0, input.IndexOf(' ') + 1);
+		switch (temp)
+        {
+			case "show":
+				switch (next.ToLower())
+				{
+					case "hand":
+						showHand();
+						break;
+					case "my battlefield":
+						showMyBattlefield();
+						break;
+					case "their battlefield":
+						showTheirBattlefield();
+						break;
+					default:
+						parse();
+						break;
+				}
+				break;
+			case "help":
+				Console.WriteLine("show hand - Shows cards that you have in hand\n" +
+                    "show my battlefield - shows cards on your side of the battlefield\n" +
+                    "show their battlefield - shows cards on their side of the battlefield\n" +
+                    "play [CARDNAME] - plays a card if you have enough resources\n" +
+                    "attack with [CREATURE] - attacks with a creature on the battlefield\n" +
+                    "block [OPPONENT'S CREATURE] with [YOUR CREATURE] - explanitory\n" +
+                    "clear - clears the screen\n" +
+                    "end - ends your turn");
+				parse();
+				break;
+			case "play":
+				foreach (Card c in hand)
+                {
+					int cardStart = hand.Count();
+					if(c.name.ToLower() == next.ToLower())
+                    {
+                        switch (c.spellType)
+                        {
+							case Card.spellNum.Creature:
+								if(yourBlood >= c.cost)
+                                {
+									yourField.Add(c);
+									hand.Remove(c);
+									yourBlood -= c.cost;
+									break;
+                                }
+								break;
+							case Card.spellNum.Incantation:
+								yourSanity -= c.cost;
+								hand.Remove(c);
+								break;
+							case Card.spellNum.Ritual:
+								yourSanity -= c.cost;
+								hand.Remove(c);
+								break;
+							default:
+								break;
+								
+                        }
+						Console.WriteLine($"Played {c.name}");
+                    }
+					if(hand.Count() < cardStart)
+						break;
+				}
+				break;
+			case "attack":
+				foreach(Card c in yourField)
+                {
+					if(c.name.ToLower() == next.ToLower())
+                    {
+						theirDevotion -= c.strength;
+						if (c.keywords.Contains("Warping"))
+							theirSanity -= c.warpingMod;
+						CheckCreatures();
+                    }
+                }
+				break;
+			case "end":
+				return;
+			case "clear":
+				Console.Clear();
+				break;
+			default:
+				Console.WriteLine("Can't find that keyword!");
+				break;
+		}
+		parse();
 	}
 	
 	static void showHand()
@@ -135,13 +221,12 @@ internal class Program
 			c.DrawCard();
 		}
 	}
-	
 	static void showMyBattlefield()
 	{
 		foreach(Card c in yourField)
         {
 			c.DrawCard();
-        }
+		}
 	}
 	static void showTheirBattlefield()
 	{
@@ -150,7 +235,6 @@ internal class Program
 			c.DrawCard();
 		}
 	}
-
 	static void CheckCreatures()
     {
 		List<Card> removeThese = new List<Card>();
@@ -184,9 +268,17 @@ internal class Program
 		}
 		Console.WriteLine("Welcome to the Tutorial!\n\n");
 	
-		Console.WriteLine("This is the command line. Commands like \"show hand\" or \"show my battlefield\" allow you to move your point of reference.\n" +
+		Console.WriteLine("This is the command line. Commands like \"show hand\", \"show my battlefield\", and \"help\" allow you to move your point of reference.\n" +
 			"Try looking at your hand!");
-		parse();
+		string input = "";
+		while(input != "show hand")
+		{
+			Console.Write($"\n\n > ");
+			input = Console.ReadLine();
+			if(input != "show hand")
+				Console.WriteLine("Try looking at your hand!");
+        }
+		showHand();
 		Console.Write("This is your hand, consisting of any number of three types of cards.\n" +
 			"Creatures are the frontline of your cult. You play them with ");
 		Console.ForegroundColor = ConsoleColor.Red;
@@ -214,7 +306,45 @@ internal class Program
             "For example: If you have 0 Sanity at the start of your turn, and this is the 3rd turn that you've had 0 Sanity, you'll lose 3 Devotion.\n" +
             "\n" +
             "Devotion is the metric by which health is discerned. If you reduce your opponent to 0 Devotion through damage, you win the game." +
-            "");
-
+            "\n\n" +
+            "This demo 'experience' is going to be very one-sided. There is no AI, and no multiplayer option. Sorry.\n" +
+            "Pretty much the only thing that works are the creatures in combat.\n" +
+            "Please press enter to continue!");
+		Console.ReadLine();
+		Console.Clear();
+		turn();
+	}
+	static void displayHeader()
+    {
+		int width = Console.BufferWidth;
+		for (int i = 0; i < (width - 16) / 2; i++)
+		{
+			Console.Write(' ');
+		}
+		Console.WriteLine("It is your turn!\n\n");
+		Console.Write($"Your Devotion: {yourDevotion}");
+		for (int i = 0; i < width - 17 - 18; i++)
+		{
+			Console.Write(' ');
+		}
+		Console.WriteLine($"Their Devotion: {theirDevotion}");
+		Console.Write($"Your Sanity: {yourSanity}");
+		for (int i = 0; i < width - 15 - 16; i++)
+		{
+			Console.Write(' ');
+		}
+		Console.WriteLine($"Their Sanity: {theirSanity}");
+		Console.WriteLine($"Blood Coffers: {yourBloodCoffers}\n" +
+			$"Blood: {yourBlood}");
+	}
+	static void turn()
+	{
+		draw();
+		yourBloodCoffers += 1;
+		yourBlood += 3;
+		if (yourBlood > yourBloodCoffers)
+			yourBlood = yourBloodCoffers;
+		parse();
+		turn();
 	}
 }
