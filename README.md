@@ -6,4 +6,4 @@ Have fun!
 
 Written 100% in C# and 0% in Unity :)
 
-If you have issues running, try installing the .NET redist: https://dotnet.microsoft.com/en-us/download
+If you have issues running, try installing the .NET runtime: https://dotnet.microsoft.com/en-us/download

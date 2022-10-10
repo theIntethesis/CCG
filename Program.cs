@@ -102,11 +102,23 @@ internal class Program
 
 	static void draw()
     {
-		hand.Add(drawPile.ElementAt(0));
-		drawPile.RemoveAt(0);
+		if(drawPile.Count() <= 0)
+        {
+			youlose();
+        }
+		if(hand.Count() < 10)
+		{
+			hand.Add(drawPile.ElementAt(0));
+			drawPile.RemoveAt(0);
+		}
+        else
+        {
+			discardPile.Add(drawPile.ElementAt(0));
+			drawPile.RemoveAt(0);
+        }
 	}
 
-	static void parse()
+	static void command()
 	{
 		displayHeader();
 		string next;
@@ -222,7 +234,7 @@ internal class Program
 				Console.WriteLine("Can't find that keyword!");
 				break;
 		}
-		parse();
+		command();
 	}
 	
 	static void showHand()
@@ -288,6 +300,22 @@ internal class Program
 		Console.WriteLine("You WIN!\n\n");
 		Console.ForegroundColor = ConsoleColor.White;
 
+		Console.WriteLine("This ends the 'demo'. Please press 'enter' to close the program :)");
+		Console.ReadLine();
+		System.Environment.Exit(0);
+	}
+	static void youlose()
+	{
+		Console.Clear();
+
+		int width = Console.BufferWidth;
+		for (int i = 0; i < (width - 9) / 2; i++)
+		{
+			Console.Write(' ');
+		}
+		Console.ForegroundColor = ConsoleColor.Green;
+		Console.WriteLine("You Lose!\n\n");
+		Console.ForegroundColor = ConsoleColor.White;
 		Console.WriteLine("This ends the 'demo'. Please press 'enter' to close the program :)");
 		Console.ReadLine();
 		System.Environment.Exit(0);
@@ -400,9 +428,11 @@ internal class Program
 		draw();
 		yourBloodCoffers += 1;
 		yourBlood += 3;
+		if (yourBloodCoffers > 5)
+			yourBloodCoffers = 5;
 		if (yourBlood > yourBloodCoffers)
 			yourBlood = yourBloodCoffers;
-		parse();
+		command();
 		turn();
 	}
 }
