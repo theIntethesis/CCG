@@ -141,7 +141,6 @@ internal class Program
 						showTheirBattlefield();
 						break;
 					default:
-						parse();
 						break;
 				}
 				break;
@@ -154,7 +153,6 @@ internal class Program
                     "block [OPPONENT'S CREATURE] with [YOUR CREATURE] - explanitory\n" +
                     "clear - clears the screen\n" +
                     "end - ends your turn");
-				parse();
 				break;
 			case "play":
 				foreach (Card c in hand)
@@ -352,26 +350,46 @@ internal class Program
 	}
 	static void displayHeader()
     {
+		// ┌┐└┘├┤│─
 		int width = Console.BufferWidth;
+		Console.Write('├');
+		for(int i = Console.CursorLeft; i < (width - 22) / 2; i++)
+        {
+			Console.Write('─');
+        }
+		Console.ForegroundColor = ConsoleColor.DarkGreen;
+		Console.Write("Conflict of the Cosmos");
+		Console.ForegroundColor = ConsoleColor.White;
+		for (int i = Console.CursorLeft; i < width - 1; i++)
+		{
+			Console.Write('─');
+		}
+		Console.WriteLine('┤');
 		for (int i = 0; i < (width - 16) / 2; i++)
 		{
 			Console.Write(' ');
 		}
 		Console.WriteLine("It is your turn!\n\n");
-		Console.Write($"Your Devotion: {yourDevotion}");
-		for (int i = 0; i < width - 17 - 18; i++)
+		Console.Write($" Your Devotion: {yourDevotion}");
+		for (int i = 0; i < width - 18 - 19; i++)
 		{
 			Console.Write(' ');
 		}
-		Console.WriteLine($"Their Devotion: {theirDevotion}");
-		Console.Write($"Your Sanity: {yourSanity}");
-		for (int i = 0; i < width - 15 - 16; i++)
+		Console.WriteLine($"Their Devotion: {theirDevotion} ");
+		Console.Write($" Your Sanity: {yourSanity}");
+		for (int i = 0; i < width - 16 - 17; i++)
 		{
 			Console.Write(' ');
 		}
-		Console.WriteLine($"Their Sanity: {theirSanity}");
-		Console.WriteLine($"Blood Coffers: {yourBloodCoffers}\n" +
-			$"Blood: {yourBlood}");
+		Console.WriteLine($"Their Sanity: {theirSanity} ");
+		Console.WriteLine($" Blood Coffers: {yourBloodCoffers}\n" +
+			$" Blood: {yourBlood}");
+		Console.Write('├'); 
+		for (int i = Console.CursorLeft; i < width - 1; i++)
+		{
+			Console.Write('─');
+		}
+		Console.WriteLine('┤');
 	}
 	static void turn()
 	{
