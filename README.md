@@ -1,2 +1,1 @@
-# Cthulhu-Card-Game
 # CCG

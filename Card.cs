@@ -70,7 +70,9 @@ namespace CCG
                 {
                     Console.Write(' ');
                 }
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write(name);
+                Console.ForegroundColor = ConsoleColor.White;
                 for (int i = 0; i < 5; i++)
                 {
                     Console.Write(' ');
@@ -103,22 +105,56 @@ namespace CCG
                 }
                 Console.WriteLine("┘");
             }
+
             header();
             frontspace();
+            string temp = text;
             switch (spellType)
             {
                 case spellNum.Creature:
                     Console.Write($"Creature: {creatureType}");
                     wrapspace(); wrapspace();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.Write($"Blood: {cost}");
+                    Console.ForegroundColor = ConsoleColor.White;
                     wrapspace(); wrapspace();
-                    for(int i = 0; i < text.Length; i++)
+                    while (temp.Length > 0)
                     {
-                        if (Console.CursorLeft < farEdge - 2)
-                            Console.Write(text[i]);
-                        else
+                        string nextWord = "";
+                        try
                         {
-                            wrapspace(); i--;
+                            nextWord = temp.Substring(0, temp.IndexOf(' '));
+                        }
+                        catch (Exception ex)
+                        {
+                            nextWord = temp;
+                        }
+                        if (Console.CursorLeft + nextWord.Length > farEdge - 2)
+                        {
+                            wrapspace();
+                        }
+                        //massive = 1, warping = 2, manifest = 3, dying_breath = 4, initiation = 5
+                        if (nextWord.Contains("Massive"))
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                        else if (nextWord.Contains("Warping"))
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+                        else if (nextWord.Contains("Dying") || nextWord.Contains("Breath"))
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                        else if (nextWord.Contains("Initiation"))
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        else Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write($"{nextWord} ");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        if (temp.Length > 0)
+                        {
+                            try
+                            {
+                                temp = temp.Remove(0, nextWord.Length + 1);
+                            }
+                            catch (Exception ext)
+                            {
+                                temp = "";
+                            }
                         }
                     }
                     middleBar();
@@ -128,12 +164,20 @@ namespace CCG
                         Console.Write(' ');
                     }
                     Console.WriteLine("│   │");
-                    Console.Write($"│ {strength} │ S");
+                    Console.Write($"│ ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(strength);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(" │ S");
                     for (int i = Console.CursorLeft; i < farEdge - 7; i++)
                     {
                         Console.Write(' ');
                     }
-                    Console.WriteLine($"W │ {will} │");
+                    Console.Write($"W │ ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(will);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine(" │");
                     Console.Write("│   │");
                     for (int i = Console.CursorLeft; i < farEdge - 5; i++)
                     {
@@ -143,18 +187,41 @@ namespace CCG
                     bottomBar();
                     break;
                 case spellNum.Ritual:
-                    Console.Write($"Sanity: {cost}");
+                    Console.Write($"Ritual");
                     wrapspace(); wrapspace();
-                    for (int i = 0; i < text.Length; i++)
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"Sanity: {cost}");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    wrapspace(); wrapspace();
+                    while(temp.Length > 0)
                     {
-                        if (Console.CursorLeft < farEdge - 2)
-                            Console.Write(text[i]);
-                        else
+                        string nextWord = "";
+                        try
                         {
-                            wrapspace(); i--;
+                            nextWord = temp.Substring(0, temp.IndexOf(' '));
+                        }
+                        catch (Exception ex)
+                        {
+                            nextWord = temp;
+                        }
+                        if (Console.CursorLeft + nextWord.Length > farEdge - 2)
+                        {
+                            wrapspace();
+                        }
+                        Console.Write($"{nextWord} ");
+                        if (temp.Length > 0)
+                        {
+                            try
+                            {
+                                temp = temp.Remove(0, nextWord.Length + 1);
+                            }
+                            catch (Exception ext)
+                            {
+                                temp = "";
+                            }
                         }
                     }
-                    for(int i = 0; i < 5; i++)
+                    for(int i = 0; i < 2; i++)
                     {
                         wrapspace();
                     }
@@ -162,18 +229,41 @@ namespace CCG
                     bottomBar();
                     break;
                 case spellNum.Incantation:
-                    Console.Write($"Sanity: {cost}");
+                    Console.Write($"Incantation");
                     wrapspace(); wrapspace();
-                    for (int i = 0; i < text.Length; i++)
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"Sanity: {cost}");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    wrapspace(); wrapspace();
+                    while (temp.Length > 0)
                     {
-                        if (Console.CursorLeft < farEdge - 2)
-                            Console.Write(text[i]);
-                        else
+                        string nextWord = "";
+                        try
                         {
-                            wrapspace(); i--;
+                            nextWord = temp.Substring(0, temp.IndexOf(' '));
+                        }
+                        catch (Exception ex)
+                        {
+                            nextWord = temp;
+                        }
+                        if (Console.CursorLeft + nextWord.Length > farEdge - 2)
+                        {
+                            wrapspace();
+                        }
+                        Console.Write($"{nextWord} ");
+                        if (temp.Length > 0)
+                        {
+                            try
+                            {
+                                temp = temp.Remove(0, nextWord.Length + 1);
+                            }
+                            catch (Exception ext)
+                            {
+                                temp = "";
+                            }
                         }
                     }
-                    for (int i = 0; i < 5; i++)
+                    for (int i = 0; i < 2; i++)
                     {
                         wrapspace();
                     }
