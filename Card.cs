@@ -14,6 +14,8 @@ namespace CCG
         public string typeName { set; get; }
         public int strength { set; get; }
         public int will { set; get; }
+        public int curWill { set; get; }
+        public bool takenDamage { set; get; }
         public string text { set; get; }
         public List<string> keywords { set; get; }
         public string creatureType { set; get; }
@@ -31,6 +33,8 @@ namespace CCG
             spellType = 0;
             typeName = "";
             creatureType = "";
+            curWill = 0;
+            takenDamage = false;
         }
         public void DrawCard()
         {
@@ -135,7 +139,7 @@ namespace CCG
                         }
                         //massive = 1, warping = 2, manifest = 3, dying_breath = 4, initiation = 5
                         if (nextWord.Contains("Massive"))
-                            Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.ForegroundColor = ConsoleColor.Blue;
                         else if (nextWord.Contains("Warping"))
                             Console.ForegroundColor = ConsoleColor.Magenta;
                         else if (nextWord.Contains("Dying") || nextWord.Contains("Breath"))
