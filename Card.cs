@@ -19,6 +19,7 @@ namespace CCG
         public bool takenDamage { set; get; }
         public string text { set; get; }
         public int warpingMod { set; get; }
+        public bool attacked { set; get; }
         public List<string> keywords { set; get; }
         public string creatureType { set; get; }
         public spellNum spellType { set; get; }
@@ -37,6 +38,7 @@ namespace CCG
             creatureType = "";
             curWill = 0;
             takenDamage = false;
+            attacked = false;
         }
         public void DrawCard()
         {

@@ -16,6 +16,7 @@ internal class Program
 	public static int yourBloodCoffers = 0;
 	public static int yourBlood = 0;
 	public static int theirSanity = 50;
+
 	static void Main()
 	{ 
 		Random rng = new Random();
@@ -168,6 +169,7 @@ internal class Program
                                 {
 									yourField.Add(c);
 									hand.Remove(c);
+									c.curWill = c.will;
 									yourBlood -= c.cost;
 									break;
                                 }
@@ -193,13 +195,24 @@ internal class Program
 			case "attack":
 				foreach(Card c in yourField)
                 {
-					if(c.name.ToLower() == next.ToLower())
+					int fieldstart = yourField.Count();
+					if(next.ToLower().Contains(c.name.ToLower()))
                     {
-						theirDevotion -= c.strength;
-						if (c.keywords.Contains("Warping"))
-							theirSanity -= c.warpingMod;
-						CheckCreatures();
+                        if (!c.attacked)
+						{
+							c.attacked = true;
+							theirDevotion -= c.strength;
+							if (c.keywords.Contains("Warping"))
+								theirSanity -= c.warpingMod;
+							CheckCreatures();
+						}
+                        else
+                        {
+							Console.WriteLine("That creature has already attacked this turn!");
+                        }
                     }
+					if (yourField.Count() < fieldstart)
+						break;
                 }
 				break;
 			case "end":
@@ -258,7 +271,30 @@ internal class Program
 			yourField.Remove(c);
 			theirField.Remove(c);
         }
+		if(theirDevotion <= 0)
+        {
+			youwin();
+        }
     }
+
+	static void youwin()
+    {
+		Console.Clear();
+
+		int width = Console.BufferWidth;
+		for (int i = 0; i < (width - 8) / 2; i++)
+		{
+			Console.Write(' ');
+		}
+		Console.ForegroundColor = ConsoleColor.Green;
+		Console.WriteLine("You WIN!\n\n");
+		Console.ForegroundColor = ConsoleColor.White;
+
+		Console.WriteLine("This ends the 'demo'. Please press 'enter' to close the program :)");
+		Console.ReadLine();
+		System.Environment.Exit(0);
+	}
+
 	static void tutorial()
 	{
 		int width = Console.BufferWidth;
@@ -339,6 +375,10 @@ internal class Program
 	}
 	static void turn()
 	{
+		foreach(Card c in yourField)
+        {
+			c.attacked = false;
+        }
 		draw();
 		yourBloodCoffers += 1;
 		yourBlood += 3;
