@@ -18,7 +18,11 @@ internal class Program
 	public static int theirSanity = 50;
 
 	static void Main()
-	{ 
+	{
+		Console.Title = "Conflict of the Cosmos";
+
+		Console.Beep();
+
 		Random rng = new Random();
 	
 		void Shuffle<T>(IList<T> list)
@@ -215,6 +219,7 @@ internal class Program
 							if (c.keywords.Contains("Warping"))
 								theirSanity -= c.warpingMod;
 							CheckCreatures();
+							Console.Beep();
 						}
                         else
                         {
@@ -239,23 +244,160 @@ internal class Program
 	
 	static void showHand()
 	{
-		foreach(Card c in hand)
+		List<List<string>> printMe = new List<List<string>>();
+		int width = Console.BufferWidth;
+		int max = 0;
+
+		// Fill printMe
+		foreach (Card c in hand)
 		{
-			c.DrawCard();
+			printMe.Add(c.DrawCardSide());
+		}
+
+		// Find longest List<String> in printMe
+		foreach (List<string> me in printMe){
+			max = Math.Max(max, me.Count);
+        }
+
+		int cardNum = 0;
+		int cardLine = 0;
+		int lastCardPrinted = 0;
+		while (printMe.Count() > 0)
+		{
+			if(cardNum < printMe.Count())
+			{
+				while (printMe.ElementAt(cardNum).ElementAt(cardLine).Length <= width - Console.CursorLeft)
+				{
+					Console.Write($"{printMe.ElementAt(cardNum).ElementAt(cardLine)} ");
+					cardNum++;
+					if (cardNum == printMe.Count())
+						break;
+				}
+				Console.WriteLine();
+				lastCardPrinted = cardNum - 1;
+				cardNum = 0;
+				cardLine++;
+			}
+			if(cardLine == 20)
+            {
+				if(lastCardPrinted == printMe.Count())
+                {
+					return;
+                }
+				for(int i = lastCardPrinted; i >= 0; i--)
+                {
+					printMe.RemoveAt(i);
+                }
+				cardNum = 0;
+				cardLine = 0;
+				Console.WriteLine("\n");
+            }
 		}
 	}
 	static void showMyBattlefield()
 	{
-		foreach(Card c in yourField)
-        {
-			c.DrawCard();
+		List<List<string>> printMe = new List<List<string>>();
+		int width = Console.BufferWidth;
+		int max = 0;
+
+		// Fill printMe
+		foreach (Card c in yourField)
+		{
+			printMe.Add(c.DrawCardSide());
+		}
+
+		// Find longest List<String> in printMe
+		foreach (List<string> me in printMe)
+		{
+			max = Math.Max(max, me.Count);
+		}
+
+		int cardNum = 0;
+		int cardLine = 0;
+		int lastCardPrinted = 0;
+		while (printMe.Count() > 0)
+		{
+			if (cardNum < printMe.Count())
+			{
+				while (printMe.ElementAt(cardNum).ElementAt(cardLine).Length <= width - Console.CursorLeft)
+				{
+					Console.Write($"{printMe.ElementAt(cardNum).ElementAt(cardLine)} ");
+					cardNum++;
+					if (cardNum == printMe.Count())
+						break;
+				}
+				Console.WriteLine();
+				lastCardPrinted = cardNum - 1;
+				cardNum = 0;
+				cardLine++;
+			}
+			if (cardLine == 20)
+			{
+				if (lastCardPrinted == printMe.Count())
+				{
+					return;
+				}
+				for (int i = lastCardPrinted; i >= 0; i--)
+				{
+					printMe.RemoveAt(i);
+				}
+				cardNum = 0;
+				cardLine = 0;
+				Console.WriteLine("\n");
+			}
 		}
 	}
 	static void showTheirBattlefield()
 	{
+		List<List<string>> printMe = new List<List<string>>();
+		int width = Console.BufferWidth;
+		int max = 0;
+
+		// Fill printMe
 		foreach (Card c in theirField)
 		{
-			c.DrawCard();
+			printMe.Add(c.DrawCardSide());
+		}
+
+		// Find longest List<String> in printMe
+		foreach (List<string> me in printMe)
+		{
+			max = Math.Max(max, me.Count);
+		}
+
+		int cardNum = 0;
+		int cardLine = 0;
+		int lastCardPrinted = 0;
+		while (printMe.Count() > 0)
+		{
+			if (cardNum < printMe.Count())
+			{
+				while (printMe.ElementAt(cardNum).ElementAt(cardLine).Length <= width - Console.CursorLeft)
+				{
+					Console.Write($"{printMe.ElementAt(cardNum).ElementAt(cardLine)} ");
+					cardNum++;
+					if (cardNum == printMe.Count())
+						break;
+				}
+				Console.WriteLine();
+				lastCardPrinted = cardNum - 1;
+				cardNum = 0;
+				cardLine++;
+			}
+			if (cardLine == 20)
+			{
+				if (lastCardPrinted == printMe.Count())
+				{
+					return;
+				}
+				for (int i = lastCardPrinted; i >= 0; i--)
+				{
+					printMe.RemoveAt(i);
+				}
+				cardNum = 0;
+				cardLine = 0;
+				Console.WriteLine("\n");
+			}
 		}
 	}
 	static void CheckCreatures()
@@ -286,7 +428,6 @@ internal class Program
 			youwin();
         }
     }
-
 	static void youwin()
     {
 		Console.Clear();
@@ -320,7 +461,6 @@ internal class Program
 		Console.ReadLine();
 		System.Environment.Exit(0);
 	}
-
 	static void tutorial()
 	{
 		int width = Console.BufferWidth;

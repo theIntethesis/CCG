@@ -40,6 +40,263 @@ namespace CCG
             takenDamage = false;
             attacked = false;
         }
+        public List<string> DrawCardSide()
+        {
+            // ┌┐└┘├┤│─
+            List<String> returnMe = new List<string>();
+            int farEdge = name.Length + 12;
+            string frontspace()
+            {
+                return "│ ";
+            }
+            string backspace(string append)
+            {
+                string addMe = "";
+                for (int i = append.Length + addMe.Length; i < farEdge-1; i++)
+                {
+                    addMe += ' ';
+                }
+                addMe += "│";
+                return addMe;
+            }
+            void header()
+            {
+                string addMe = "";
+
+                addMe += "┌";
+                for (int i = -5; i < name.Length + 5; i++)
+                {
+                    addMe += "─";
+                }
+                addMe += "┐";
+                returnMe.Add(addMe);
+
+                addMe = "│";
+                for (int i = 0; i < 5; i++)
+                {
+                    addMe += ' ';
+                }
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                addMe += name;
+                Console.ForegroundColor = ConsoleColor.White;
+                for (int i = 0; i < 5; i++)
+                {
+                    addMe += ' ';
+                }
+
+                addMe += "│";
+                returnMe.Add(addMe);
+
+                addMe = "├";
+                for (int i = -5; i < name.Length + 5; i++)
+                {
+                   addMe += "─";
+                }
+                addMe += "┤";
+                returnMe.Add(addMe);
+            }
+            void bottomBar()
+            {
+                string addMe = "└";
+                for (int i = addMe.Length; i < farEdge - 1; i++)
+                {
+                    addMe += '─';
+                }
+                addMe += "┘";
+                returnMe.Add(addMe);
+            }
+
+            header();
+            string temp = text;
+            string addMe = frontspace();
+            switch (spellType)
+            {
+                case spellNum.Creature:
+                    addMe +=$"Creature: {creatureType}";
+                    addMe += backspace(addMe);
+                    returnMe.Add(addMe);
+
+                    addMe = frontspace();
+                    addMe += backspace(addMe);
+                    returnMe.Add(addMe);
+
+                    addMe = frontspace();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    addMe += $"Blood: {cost}";
+                    Console.ForegroundColor = ConsoleColor.White;
+                    addMe += backspace(addMe);
+                    returnMe.Add(addMe);
+
+                    addMe = frontspace();
+                    addMe += backspace(addMe);
+                    returnMe.Add(addMe);
+
+                    addMe = frontspace();
+
+                    while (temp.Length > 0)
+                    {
+                        string nextWord = "";
+                        try
+                        {
+                            nextWord = temp.Substring(0, temp.IndexOf(' '));
+                        }
+                        catch (Exception ex)
+                        {
+                            nextWord = temp;
+                        }
+                        if (addMe.Length + nextWord.Length > farEdge - 2)
+                        {
+                            addMe += backspace(addMe);
+                            returnMe.Add(addMe);
+
+                            addMe = frontspace();
+                        }
+                        //massive = 1, warping = 2, manifest = 3, dying_breath = 4, initiation = 5
+                        if (nextWord.Contains("Massive"))
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                        else if (nextWord.Contains("Warping"))
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+                        else if (nextWord.Contains("Dying") || nextWord.Contains("Breath"))
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                        else if (nextWord.Contains("Initiation"))
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        else Console.ForegroundColor = ConsoleColor.White;
+                        addMe += $"{nextWord} ";
+                        Console.ForegroundColor = ConsoleColor.White;
+                        if (temp.Length > 0)
+                        {
+                            try
+                            {
+                                temp = temp.Remove(0, nextWord.Length + 1);
+                            }
+                            catch (Exception ext)
+                            {
+                                temp = "";
+                            }
+                        }
+                    }
+                    addMe += backspace(addMe);
+                    returnMe.Add(addMe);
+
+                    addMe = "├───┬";
+                    for (int i = addMe.Length; i < farEdge - 5; i++)
+                    {
+                        addMe += '─';
+                    }
+                    addMe += "┬───┤";
+                    returnMe.Add(addMe);
+
+                    addMe = "│   │";
+                    for(int i = addMe.Length; i < farEdge - 5; i++)
+                    {
+                        addMe += ' ';
+                    }
+                    addMe += "│   │";
+                    returnMe.Add(addMe);
+
+                    addMe = "│ ";
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    addMe += $"{strength}";
+                    Console.ForegroundColor = ConsoleColor.White;
+                    addMe += " │ S";
+                    for (int i = addMe.Length; i < farEdge - 7; i++)
+                    {
+                        addMe += ' ';
+                    }
+                    addMe += "W │ ";
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    addMe += $"{will}";
+                    Console.ForegroundColor = ConsoleColor.White;
+                    addMe += " │";
+                    returnMe.Add(addMe);
+
+                    addMe = "│   │";
+                    for (int i = addMe.Length; i < farEdge - 5; i++)
+                    {
+                        addMe += ' ';
+                    }
+                    addMe += "│   │";
+                    returnMe.Add(addMe);
+                    bottomBar();
+                    break;
+                case spellNum.Ritual:
+                case spellNum.Incantation:
+                    addMe += $"{spellType}";
+                    addMe += backspace(addMe);
+                    returnMe.Add(addMe);
+
+                    addMe = frontspace();
+                    addMe += backspace(addMe);
+                    returnMe.Add(addMe);
+
+                    addMe = frontspace();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    addMe += $"Sanity: {cost}";
+                    Console.ForegroundColor = ConsoleColor.White;
+                    addMe += backspace(addMe);
+                    returnMe.Add(addMe);
+
+                    addMe = frontspace();
+                    addMe += backspace(addMe);
+                    returnMe.Add(addMe);
+
+                    addMe = frontspace();
+                    while (temp.Length > 0)
+                    {
+                        string nextWord = "";
+                        try
+                        {
+                            nextWord = temp.Substring(0, temp.IndexOf(' '));
+                        }
+                        catch (Exception ex)
+                        {
+                            nextWord = temp;
+                        }
+                        if (addMe.Length + nextWord.Length > farEdge - 2)
+                        {
+                            addMe += backspace(addMe);
+                            returnMe.Add(addMe);
+
+                            addMe = frontspace();
+                        }
+                        addMe += $"{nextWord} ";
+                        if (temp.Length > 0)
+                        {
+                            try
+                            {
+                                temp = temp.Remove(0, nextWord.Length + 1);
+                            }
+                            catch (Exception ext)
+                            {
+                                temp = "";
+                            }
+                        }
+                    }
+                    for (int i = 0; i < 2; i++)
+                    {
+                        addMe += backspace(addMe);
+                        returnMe.Add(addMe);
+
+                        addMe = frontspace();
+                    }
+                    addMe += backspace(addMe);
+                    returnMe.Add(addMe);
+                    bottomBar();
+                    break;
+                default:
+                    throw new Exception("Error upon Printing: type not recognized");
+            }
+            for(int i = returnMe.Count; i < 20; i++)
+            {
+                addMe = "";
+                for(int j = 0; j < farEdge; j++)
+                {
+                    addMe += ' ';
+                }
+                returnMe.Add(addMe);
+            }
+            return returnMe;
+        }
         public void DrawCard()
         {
             // ┌┐└┘├┤│─
@@ -55,7 +312,7 @@ namespace CCG
             }
             void backspace()
             {
-                for (int i = Console.CursorLeft; i < farEdge-1; i++)
+                for (int i = Console.CursorLeft; i < farEdge - 1; i++)
                 {
                     Console.Write(' ');
                 }
@@ -167,7 +424,7 @@ namespace CCG
                     }
                     middleBar();
                     Console.Write("│   │");
-                    for(int i = Console.CursorLeft; i < farEdge - 5; i++)
+                    for (int i = Console.CursorLeft; i < farEdge - 5; i++)
                     {
                         Console.Write(' ');
                     }
@@ -201,7 +458,7 @@ namespace CCG
                     Console.Write($"Sanity: {cost}");
                     Console.ForegroundColor = ConsoleColor.White;
                     wrapspace(); wrapspace();
-                    while(temp.Length > 0)
+                    while (temp.Length > 0)
                     {
                         string nextWord = "";
                         try
@@ -229,7 +486,7 @@ namespace CCG
                             }
                         }
                     }
-                    for(int i = 0; i < 2; i++)
+                    for (int i = 0; i < 2; i++)
                     {
                         wrapspace();
                     }
@@ -281,44 +538,6 @@ namespace CCG
                 default:
                     throw new Exception("Error upon Printing: type not recognized");
             }
-        }
-        public void printCard()
-        {
-            switch (spellType)
-            {
-                case spellNum.Creature:
-                    Console.Write(
-                        $"Name:\t{name}\n" +
-                        $"Type:\tCreature - {creatureType}\n" +
-                        $"S/W:\t{strength}/{will}\n" +
-                        $"Blood:\t{cost}\n" +
-                        $"Text:\t{text}\n" +
-                        $"Keywords:\t"
-                    );
-                    
-                    if (keywords != null)
-                    {
-                        foreach (string key in keywords)
-                        {
-                            Console.Write($"{key}, ");
-                        }
-                    }
-                    else
-                    {
-                        Console.Write("None");
-                    }
-                    Console.WriteLine("\n");
-                    break;
-                default:
-                    Console.WriteLine(
-                        $"Name:\t{name}\n" +
-                        $"Type:\t{spellType}\n" +
-                        $"Sanity:\t{cost}\n" +
-                        $"Text:\t{text}\n"
-                    );
-                    break;
-            }
-            
         }
         public static Card fromYaml(string fName)
         {
